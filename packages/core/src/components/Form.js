@@ -264,6 +264,14 @@ export default class Form extends Component {
         );
         errors = toErrorList(errorSchema);
       }
+      if (newErrorSchema) {
+        errorSchema = mergeObjects(
+          errorSchema,
+          newErrorSchema,
+          !!"concat arrays"
+        );
+        errors = toErrorList(errorSchema);
+      }
       state = {
         formData: newFormData,
         errors,
@@ -274,10 +282,10 @@ export default class Form extends Component {
     } else if (!this.props.noValidate && newErrorSchema) {
       const errorSchema = this.props.extraErrors
         ? mergeObjects(
-            newErrorSchema,
-            this.props.extraErrors,
-            !!"concat arrays"
-          )
+          newErrorSchema,
+          this.props.extraErrors,
+          !!"concat arrays"
+        )
         : newErrorSchema;
       state = {
         formData: newFormData,
@@ -480,12 +488,12 @@ export default class Form extends Component {
         {children ? (
           children
         ) : (
-          <div>
-            <button type="submit" className="btn btn-info">
-              Submit
+            <div>
+              <button type="submit" className="btn btn-info">
+                Submit
             </button>
-          </div>
-        )}
+            </div>
+          )}
       </FormTag>
     );
   }
